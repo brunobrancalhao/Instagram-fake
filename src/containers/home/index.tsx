@@ -1,23 +1,49 @@
-import React, { Component, } from 'react';
-import { inject, observer } from 'mobx-react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {Component} from 'react';
+import {inject, observer} from 'mobx-react';
 
 import HomeStore from '../../stores/home.store';
-import { Layout } from '@ui-kitten/components';
-import { ScrollView } from 'react-native';
+import {Layout, Card, Avatar, Divider, Text} from '@ui-kitten/components';
+import {ScrollView, View, Image} from 'react-native';
 
 interface Props {
-  homeStore: HomeStore,
+  homeStore: HomeStore;
   navigation: any;
 }
 
 @inject('homeStore')
 @observer
 export default class Home extends Component<Props> {
+  async componentDidMount() {
+    const {getPosts} = this.props.homeStore;
+    await getPosts();
+  }
+
   render() {
+    const {posts} = this.props.homeStore;
     return (
-      <Layout style={{ flex: 1, backgroundColor: 'black' }}>
+      <Layout style={{flex: 1, backgroundColor: 'black'}}>
         <ScrollView>
+          {posts.map((post, index) => {
+            <Card key={index}>
+              <View>
+                <Avatar size={'small'} source={{uri: post.author.avatar}} />
+                <Text>{post.author.name}</Text>
+              </View>
+              <Image
+                source={{
+                  uri: 'https://reactnative.dev/img/tiny_logo.png',
+                }}
+              />
+              <Image source={{uri: post.image}} />
+              <Divider />
+              <View>
+                <Text>{post.description}</Text>
+              </View>
+            </Card>;
+          })}
         </ScrollView>
-      </Layout>);
+      </Layout>
+    );
   }
 }

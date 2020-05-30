@@ -3,6 +3,7 @@ import * as React from 'react';
 import Home from '../containers/home';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {StatusBar} from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -18,7 +19,7 @@ function Routes() {
         <Stack.Screen
           options={{
             headerTitleAlign: 'center',
-            headerTitle: 'Unifacef Gram',
+            headerTitle: 'Instagram Fake',
             headerTintColor: 'white',
             headerStyle: {
               backgroundColor: 'black',

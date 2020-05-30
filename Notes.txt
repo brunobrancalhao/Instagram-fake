@@ -1,0 +1,3 @@
+yarn json-server server.json -d 1000 -w
+adb reverse tcp:3000 tcp:3000 -> Liberar portas
+chmod 755 android/gradlew  -> Permissão
