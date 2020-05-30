@@ -6,7 +6,7 @@ import {
   Layout,
   Text,
 } from '@ui-kitten/components';
-import {Image, ScrollView, StyleSheet, View} from 'react-native';
+import {Alert, Image, ScrollView, StyleSheet, View} from 'react-native';
 import React, {Component} from 'react';
 import {inject, observer} from 'mobx-react';
 
@@ -29,8 +29,22 @@ export default class Home extends Component<Props> {
   render() {
     const {posts, photoReady, toogleStatus, addPost} = this.props.homeStore;
 
-    const uploadPhoto = (uri: string) => {
-      addPost(uri);
+    const uploadPhoto = (uri?: string) => {
+      if (uri) {
+        Alert.alert(
+          'Confirmação',
+          'Deseja realmente postar?',
+          [
+            {
+              text: 'Cancelar',
+              style: 'cancel',
+            },
+            {text: 'OK', onPress: () => addPost(uri)},
+            ,
+          ],
+          {cancelable: false},
+        );
+      }
       toogleStatus(false);
     };
 
